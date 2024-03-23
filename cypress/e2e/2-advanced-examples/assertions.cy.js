@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 
 context('Assertions', () => {
   beforeEach(() => {
@@ -70,7 +70,6 @@ context('Assertions', () => {
         .should(($p) => {
           // https://on.cypress.io/$
           // return an array of texts from all of the p's
-          // @ts-ignore TS6133 unused variable
           const texts = $p.map((i, el) => Cypress.$(el).text())
 
           // jquery map returns jquery object
@@ -163,6 +162,15 @@ context('Assertions', () => {
       }
 
       assert.isObject(person, 'value is object')
+    })
+
+    it('retries the should callback until assertions pass', () => {
+      cy.get('#random-number')
+        .should(($div) => {
+          const n = parseFloat($div.text())
+
+          expect(n).to.be.gte(1).and.be.lte(10)
+        })
     })
   })
 })

@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 
 context('Connectors', () => {
   beforeEach(() => {
@@ -24,12 +24,13 @@ context('Connectors', () => {
   it('.invoke() - invoke a function on the current subject', () => {
     // our div is hidden in our script.js
     // $('.connectors-div').hide()
+    cy.get('.connectors-div').should('be.hidden')
 
     // https://on.cypress.io/invoke
-    cy.get('.connectors-div').should('be.hidden')
-      // call the jquery method 'show' on the 'div.container'
-      .invoke('show')
-      .should('be.visible')
+    // call the jquery method 'show' on the 'div.container'
+    cy.get('.connectors-div').invoke('show')
+
+    cy.get('.connectors-div').should('be.visible')
   })
 
   it('.spread() - spread an array as individual args to callback function', () => {
@@ -77,21 +78,21 @@ context('Connectors', () => {
           // this callback receives the original unchanged value 1
           expect(num).to.equal(1)
         })
+    })
 
-      it('yields the value yielded by the last Cypress command inside', () => {
-        cy.wrap(1)
-          .then((num) => {
-            expect(num).to.equal(1)
-            // note how we run a Cypress command
-            // the result yielded by this Cypress command
-            // will be passed to the second ".then"
-            cy.wrap(2)
-          })
-          .then((num) => {
-            // this callback receives the value yielded by "cy.wrap(2)"
-            expect(num).to.equal(2)
-          })
-      })
+    it('yields the value yielded by the last Cypress command inside', () => {
+      cy.wrap(1)
+        .then((num) => {
+          expect(num).to.equal(1)
+          // note how we run a Cypress command
+          // the result yielded by this Cypress command
+          // will be passed to the second ".then"
+          cy.wrap(2)
+        })
+        .then((num) => {
+          // this callback receives the value yielded by "cy.wrap(2)"
+          expect(num).to.equal(2)
+        })
     })
   })
 })

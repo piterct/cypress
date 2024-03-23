@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 
 context('Actions', () => {
   beforeEach(() => {
@@ -59,6 +59,7 @@ context('Actions', () => {
     // https://on.cypress.io/submit
     cy.get('.action-form')
       .find('[type="text"]').type('HALFOFF')
+
     cy.get('.action-form').submit()
       .next().should('contain', 'Your form has been submitted!')
   })
@@ -183,17 +184,35 @@ context('Actions', () => {
   it('.select() - select an option in a <select> element', () => {
     // https://on.cypress.io/select
 
+    // at first, no option should be selected
+    cy.get('.action-select')
+      .should('have.value', '--Select a fruit--')
+
     // Select option(s) with matching text content
     cy.get('.action-select').select('apples')
+    // confirm the apples were selected
+    // note that each value starts with "fr-" in our HTML
+    cy.get('.action-select').should('have.value', 'fr-apples')
 
     cy.get('.action-select-multiple')
-    .select(['apples', 'oranges', 'bananas'])
+      .select(['apples', 'oranges', 'bananas'])
+      // when getting multiple values, invoke "val" method first
+      .invoke('val')
+      .should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
 
     // Select option(s) with matching value
     cy.get('.action-select').select('fr-bananas')
+      // can attach an assertion right away to the element
+      .should('have.value', 'fr-bananas')
 
     cy.get('.action-select-multiple')
       .select(['fr-apples', 'fr-oranges', 'fr-bananas'])
+      .invoke('val')
+      .should('deep.equal', ['fr-apples', 'fr-oranges', 'fr-bananas'])
+
+    // assert the selected values include oranges
+    cy.get('.action-select-multiple')
+      .invoke('val').should('include', 'fr-oranges')
   })
 
   it('.scrollIntoView() - scroll an element into view', () => {
@@ -242,8 +261,7 @@ context('Actions', () => {
   })
 
   it('cy.scrollTo() - scroll the window or element to a position', () => {
-
-    // https://on.cypress.io/scrollTo
+    // https://on.cypress.io/scrollto
 
     // You can scroll to 9 specific positions of an element:
     //  -----------------------------------
