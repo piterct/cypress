@@ -73,3 +73,15 @@ it('String', () => {
     expect(str).to.match(/\w+/);
     expect(str).to.match(/\D+/);
 })
+
+it('Numbers', () => {
+    const number = 4;
+    const floatNumber = 5.2123;
+
+    expect(number).to.be.equal(4);
+    expect(number).to.be.above(3);
+    expect(number).to.be.below(7);
+    expect(floatNumber).to.be.equal(5.2123);
+    expect(floatNumber).to.be.closeTo(5.2, 0.1);
+    expect(floatNumber).to.be.above(5);
+})
