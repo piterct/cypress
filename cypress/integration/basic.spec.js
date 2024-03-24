@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Crypress basics', () => {
-    it.only('Should visit a page and assert title', () => {
+    it('Should visit a page and assert title', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
 
        // const title = cy.title()
@@ -20,8 +20,10 @@ describe('Crypress basics', () => {
          //TODO Write the title in a text field       
     })
 
-    it('Should find and interect with an element', () => {
+    it.only('Should find and interect with an element', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
+
+        cy.pause()
 
         //cy.get('not exist')
         cy.get('#buttonSimple')
