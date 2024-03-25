@@ -26,10 +26,9 @@ describe('Work with basic elements', () => {
     cy.get('#resultado').should('have.text','Voltou!')
    })
 
-   it.only("Text Fields", () => {
+   it("Text Fields", () => {
     cy.get('#formNome').type('Cypress Test')
     cy.get('#formNome').should('have.value', 'Cypress Test')
-
 
     cy.get('#elementosForm\\:sugestoes')
       .type('textArea')
@@ -46,6 +45,19 @@ describe('Work with basic elements', () => {
       .clear()
       .type('Error{selectall}adjusted', {delay: 100})
       .should('have.value', 'adjusted')
+   })
+   
+   it('Radio Button', () => {
+
+    cy.get('#formSexoFem')
+       .click()
+       .should('be.checked')
+
+    cy.get('#formSexoMasc')
+       .should('not.be.checked')
+
+    cy.get("[name=formSexo]")
+       .should('have.length', 2)
 
    })
 
