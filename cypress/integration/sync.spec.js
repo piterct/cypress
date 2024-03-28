@@ -20,4 +20,15 @@ describe('Waits...', () => {
     })
 
 
+    it.only('Must Retry', () => {
+        cy.get('#novoCampo').should('not.exist')
+        cy.get('#buttonDelay').click()
+        cy.get('#novoCampo').should('not.exist')
+        cy.get('#novoCampo')
+            .should('exist')
+            .type('funciona')
+
+    })
+
+
 })
