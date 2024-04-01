@@ -31,7 +31,7 @@ describe('Waits...', () => {
 
     })
 
-    it.only('Using Find', () => {
+    it('Using Find', () => {
         cy.get('#buttonList').click()
         cy.get('#lista li')
             .find('span')
@@ -39,8 +39,11 @@ describe('Waits...', () => {
 
         cy.get('#lista li span')
             .should('contain', 'Item 2')
-
     })
 
+    it.only('Using Timeout', () => {
+       // cy.get('#buttonDelay').click()
+       // cy.get('#novoCampo', { timeout: 10000 }).should('exist')
+    })
 
 })

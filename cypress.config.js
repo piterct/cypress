@@ -1,6 +1,8 @@
 const { defineConfig } = require('cypress')
 
+
 module.exports = defineConfig({
+  //defaultCommandTimeout: 10000, 
   e2e: {
     specPattern: 'cypress/integration/*.spec.js',
     // We've imported your old cypress plugins here.
