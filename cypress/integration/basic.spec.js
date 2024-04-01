@@ -16,13 +16,15 @@ describe('Crypress basics', () => {
             .should('be.equal', 'Campo de Treinamento')
             .and('contain', 'Campo')
 
+
+        //TODO Print the title inside the console
         cy.title()
 
         cy.title().should(title => {
             console.log(title)
         })
 
-        //TODO Print the title inside the console
+
         //TODO Write the title in a text field       
     })
 
