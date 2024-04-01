@@ -7,7 +7,7 @@ describe('Crypress basics', () => {
         // const title = cy.title()
         // console.log(title)
 
-        //cy.pause()
+        cy.pause()
 
         cy.title().should('be.equal', 'Campo de Treinamento')
         cy.title().should('contain', 'Campo')
