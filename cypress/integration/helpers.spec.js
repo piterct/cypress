@@ -27,8 +27,19 @@ describe('Helpers...', () => {
             return 2
         }).should('be.equal', 1)
 
-        it('Its...', () => {
+    })
 
-        })
+    it.only('Its...', () => {
+        const obj = { name: 'User', age: 20 }
+        cy.wrap(obj).should('have.property', 'name', 'User')
+        cy.wrap(obj).its('name').should('be.equal', 'User')
+
+        const obj2 = { name: 'User', age: 20, address: { street: 'dos bobos' } }
+        cy.wrap(obj2).its('address').should('have.property', 'street')
+        cy.wrap(obj2).its('address').its('street').should('contain', 'bobos')
+        cy.wrap(obj2).its('address.street').should('contain', 'bobos')
+
+        cy.visit('https://wcaquino.me/cypress/componentes.html')
+        cy.title().its('length').should('be.equal', 20)
     })
 })
