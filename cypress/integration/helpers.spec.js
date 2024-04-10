@@ -26,5 +26,9 @@ describe('Helpers...', () => {
         cy.wrap(1).should(number => {
             return 2
         }).should('be.equal', 1)
+
+        it('Its...', () => {
+
+        })
     })
 })
