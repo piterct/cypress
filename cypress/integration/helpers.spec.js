@@ -53,6 +53,8 @@ describe('Helpers...', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
         cy.get('#formNome').invoke('val', 'Text by invoke')
         cy.window().invoke('alert', 'Can you see?')
+        cy.get('#resultado')
+            .invoke('html', '<input type="button" value ="Hacked" />');
 
     })
 })
