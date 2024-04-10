@@ -7,7 +7,7 @@ describe('Crypress basics', () => {
         // const title = cy.title()
         // console.log(title)
 
-        cy.pause()
+        //cy.pause()
 
         cy.title().should('be.equal', 'Campo de Treinamento')
         cy.title().should('contain', 'Campo')
@@ -24,8 +24,24 @@ describe('Crypress basics', () => {
             console.log(title)
         })
 
+        let syncTitle
 
-        //TODO Write the title in a text field       
+        //TODO Write the title in a text field 
+        cy.title().then(title => {
+            console.log(title)
+
+            cy.get('#formNome').type(title)
+
+            syncTitle = title
+        })
+
+        cy.get('[data-cy="dataSobrenome"]').then($el => {
+            $el.val(syncTitle)
+        })
+
+        cy.get('#elementosForm\\:sugestoes').then($el => {
+            cy.wrap($el).type(syncTitle)
+        })
     })
 
     it('Should find and interect with an element', () => {
