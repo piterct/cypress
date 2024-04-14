@@ -81,6 +81,17 @@ describe('Work with basic elements', () => {
             .should('have.value', '1graucomp')
 
         //TODO Validate ComboBox options
+        cy.get('[data-test="dataEscolaridade"] option')
+            .should('have.length', 8)
+
+        cy.get('[data-test="dataEscolaridade"] option').then($arr => {
+            const values = []
+            $arr.each(function () {
+                values.push(this.innerHTML)
+            })
+            expect(values).to.include.members(["Superior", "Mestrado"])
+        })
+
     })
 
     it.only('Multiple ComboBox', () => {
@@ -88,6 +99,15 @@ describe('Work with basic elements', () => {
             .select(['natacao', 'Corrida', 'nada'])
 
         //TODO  Validate selected Multiple ComboBox options
+        cy.get('[data-testid="dataEsportes"]').then($el => {
+            expect($el.val()).to.be.deep.equal(['natacao', 'Corrida', 'nada'])
+            expect($el.val()).to.have.length(3)
+        })
+
+        cy.get('[data-testid="dataEsportes"]')
+            .invoke('val')
+            .should('eql', ['natacao', 'Corrida', 'nada'])
+
     })
 
 
