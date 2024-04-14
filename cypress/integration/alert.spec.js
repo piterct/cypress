@@ -17,4 +17,10 @@ describe('Work with basic alerts', () => {
             expect(msg).to.be.equal('Alert Simples')
         })
     })
+
+    it.only('Alert with mock', () => {
+        const stub = cy.stub().as('alert')
+        cy.on('window:alert', stub)
+        cy.get('#alert').click()
+    })
 })
