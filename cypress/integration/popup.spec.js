@@ -11,14 +11,13 @@ describe('Work with Popup', () => {
         })
     })
 
-    it('Should verify if the popup was invoked', () => {
+    it.only('Should verify if the popup was invoked', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
-        cy.get('#frame1').then(iframe => {
-            const body = iframe.contents().find('body')
-            cy.wrap(body).find('#tfield')
-                .type('works?')
-                .should('have.value', 'works?')
+        cy.window().then(win => {
+            cy.stub(win, 'open').as('winOpen')
         })
+        cy.get('#buttonPopUp').click()
+        cy.get('@winOpen').should('be.called')
     })
 
 })
