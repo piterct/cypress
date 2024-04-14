@@ -21,3 +21,15 @@ describe('Work with Popup', () => {
     })
 
 })
+
+describe.only('With links', () => {
+    before(() => {
+        cy.visit('https://wcaquino.me/cypress/componentes.html')
+    })
+
+    it('Check popup url', () => {
+        cy.contains('Popup2')
+            .should('have.prop', 'href')
+            .and('equal', 'https://wcaquino.me/cypress/frame.html')
+    })
+})
