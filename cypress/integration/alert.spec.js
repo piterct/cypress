@@ -27,9 +27,12 @@ describe('Work with basic alerts', () => {
     })
 
     it.only('Confirm', () => {
-        cy.get('#confirm').click()
         cy.on('window:confirm', msg => {
             expect(msg).to.be.equal('Confirm Simples')
         })
+        cy.on('window:alert', msg => {
+            expect(msg).to.be.equal('Confirmado')
+        })
+        cy.get('#confirm').click()
     })
 })
