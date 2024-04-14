@@ -77,5 +77,10 @@ describe('Work with basic alerts', () => {
         cy.get('#formCadastrar').click()
             .then(() => expect(stub.getCall(2)).to.be.calledWith('Sexo eh obrigatorio'))
 
+        cy.get('#formSexoMasc').click()
+        cy.get('#formCadastrar').click()
+
+        cy.get('#resultado > :nth-child(1)').should('contain', 'Cadastrado')
+
     })
 })
