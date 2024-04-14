@@ -23,7 +23,7 @@ describe('Work with Popup', () => {
 })
 
 describe.only('With links', () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
     })
 
@@ -31,5 +31,20 @@ describe.only('With links', () => {
         cy.contains('Popup2')
             .should('have.prop', 'href')
             .and('equal', 'https://wcaquino.me/cypress/frame.html')
+    })
+
+    it('Should access popup dynamically', () => {
+        cy.contains('Popup2').then($a => {
+            const href = $a.prop('href')
+            cy.visit(href)
+            cy.get('#tfield').type('work')
+        })
+    })
+
+    it('Should force link on same page', () => {
+        cy.contains('Popup2')
+            .invoke('removeAttr', 'target')
+            .click()
+            cy.get('#tfield').type('work')
     })
 })
