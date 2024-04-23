@@ -20,6 +20,21 @@ describe('Work with basic alerts', () => {
     })
 
     it.only('Goes to the future', () => {
-        cy.get('#resultado > span').click()
+        cy.get('#buttonTimePassed').click()
+        cy.get('#resultado > span').invoke('text').then(parseFloat).should('be.gt', 1713840025930)
+
+        cy.clock()
+        cy.get('#buttonTimePassed').click()
+        cy.get('#resultado > span').invoke('text').then(parseFloat).should('be.lte', 0)
+        cy.wait(1000)
+        cy.get('#buttonTimePassed').click()
+
+        cy.tick(5000)
+        cy.get('#buttonTimePassed').click()
+        cy.get('#resultado > span').invoke('text').then(parseFloat).should('be.gte', 1000)
+        cy.tick(10000)
+        cy.get('#buttonTimePassed').click()
+        cy.get('#resultado > span').invoke('text').then(parseFloat).should('be.gte', 15000)
+
     })
 })
