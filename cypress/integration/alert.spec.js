@@ -11,11 +11,13 @@ describe('Work with basic alerts', () => {
     })
 
     it('Alert', () => {
-        cy.get('#alert').click()
-        cy.on('window:alert', msg => {
-            console.log(msg)
-            expect(msg).to.be.equal('Alert Simples')
-        })
+        // cy.get('#alert').click()
+        // cy.on('window:alert', msg => {
+        //     console.log(msg)
+        //     expect(msg).to.be.equal('Alert Simples')
+        // })
+
+        cy.clickAlert('#alert', 'Alert Simples');
     })
 
     it('Alert with mock', () => {
@@ -63,7 +65,7 @@ describe('Work with basic alerts', () => {
         cy.get('#prompt').click()
     })
 
-    it.only('Validating messages', () => {
+    it('Validating messages', () => {
         const stub = cy.stub().as('Alert')
         cy.on('window:alert', stub)
         cy.get('#formCadastrar').click()
