@@ -1,8 +1,8 @@
 {
-    "name":"",
-    "lastName": "",
-    "gender": "",
-    "food":"",
-    "education": "",
-    "sports":""
+    "name":"User",
+    "lastName": "Test",
+    "gender": "M",
+    "food":"frango",
+    "education": "Mestrado",
+    "sports":"Corrida"
 }
