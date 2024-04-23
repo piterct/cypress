@@ -18,4 +18,8 @@ describe('Work with basic alerts', () => {
         cy.get('#buttonNow').click()
         cy.get('#resultado > span').should('contain', '10/04/2012')
     })
+
+    it.only('Goes to the future', () => {
+        cy.get('#resultado > span').click()
+    })
 })
