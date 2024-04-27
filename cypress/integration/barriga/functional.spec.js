@@ -4,11 +4,7 @@ import loc from '../../support/locators'
 
 describe('Should test at a functional level', () => {
     beforeEach(() => {
-        cy.visit('https://barrigareact.wcaquino.me/')
-        cy.get(loc.LOGIN.USER).type('piterct.teste@gmail.com')
-        cy.get(loc.LOGIN.PASSWORD).type('123')
-        cy.get(loc.LOGIN.BTN_LOGIN).click()
-        cy.get(loc.MESSAGE).should('contain', 'Bem vindo')
+        cy.login('piterct.teste@gmail.com', '123')
     })
 
     it('Should create an account', () => {
