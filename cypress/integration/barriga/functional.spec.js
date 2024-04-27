@@ -17,8 +17,7 @@ describe('Should test at a functional level', () => {
 
     it('Should update an account', () => {
         cy.login('piterct.teste@gmail.com', '123')
-        cy.get(loc.MENU.SETTINGS).click()
-        cy.get(loc.MENU.ACCOUNTS).click()
+        cy.accessAccountMenu()
         cy.xpath(loc.ACCOUNTS.XP_BTN_UPDATE).click()
         cy.get(loc.ACCOUNTS.NAME)
             .clear()
