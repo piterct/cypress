@@ -3,9 +3,11 @@
 import loc from '../../support/locators'
 
 describe('Should test at a functional level', () => {
-    beforeEach(() => {
+    before(() => {
         cy.login('piterct.teste@gmail.com', '123')
-    })
+        cy.resetApp()
+        
+    });
 
     it('Should create an account', () => {
         cy.get(loc.MENU.SETTINGS).click()
@@ -16,6 +18,7 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should update an account', () => {
+        cy.login('piterct.teste@gmail.com', '123')
         cy.get(loc.MENU.SETTINGS).click()
         cy.get(loc.MENU.ACCOUNTS).click()
         cy.xpath(loc.ACCOUNTS.XP_BTN_UPDATE).click()
