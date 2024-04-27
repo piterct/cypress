@@ -12,11 +12,11 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should create an account', () => {
-        cy.get('[data-test="menu-settings"]').click()
-        cy.get('[href="/contas"]').click()
-        cy.get('[data-test="nome"]').type('Test account')
-        cy.get('.btn').click()
-        cy.get('.toast-message').should('contain', 'Conta inserida com sucesso!')
+        cy.get(loc.MENU.SETTINGS).click()
+        cy.get(loc.MENU.ACCOUNTS).click()
+        cy.get(loc.ACCOUNTS.NAME).type('Test account')
+        cy.get(loc.ACCOUNTS.BTN_SAVE).click()
+        cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
 
     it('Should update an account', () => {
