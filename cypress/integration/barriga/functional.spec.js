@@ -44,6 +44,7 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should get balance', () => {
-
+        cy.login('piterct.teste@gmail.com', '123')
+        cy.get(loc.MENU.HOME).click()
     })
 })
