@@ -18,8 +18,11 @@ const locators = {
     MOVIMENTATION: {
         DESCRIPTION: '[data-test=descricao]',
         VALUE: '[data-test=valor]',
-        INTERESTED: '[data-test="envolvido]',
+        INTERESTED: '[data-test=envolvido]',
         BTN_SALVE: '.btn-primary'
+    },
+    FINANCIAL_STATEMENT: {
+        LINES:'.list-group > li'
     },
     MESSAGE: '.toast-message'
 
