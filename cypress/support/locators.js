@@ -5,6 +5,7 @@ const locators = {
         BTN_LOGIN: '.btn'
     },
     MENU: {
+        HOME: '[data-test=menu-home]',
         SETTINGS: '[data-test=menu-settings',
         ACCOUNTS: '[href="/contas"]',
         RESET: '[href="/reset"]',
@@ -19,12 +20,15 @@ const locators = {
         DESCRIPTION: '[data-test=descricao]',
         VALUE: '[data-test=valor]',
         INTERESTED: '[data-test=envolvido]',
-        STATUS : '[data-test=status]',
+        STATUS: '[data-test=status]',
         BTN_SALVE: '.btn-primary'
     },
     FINANCIAL_STATEMENT: {
-        LINES:'.list-group > li',
+        LINES: '.list-group > li',
         XP_SEARCH_ELEMENT: "//span[contains(.,'Description')]/following-sibling::small[contains(.,'250')]"
+    },
+    BALANCE: {
+        FN_XP_BALANCE_ACCOUNT: NAME => `//td[contains(.,'${NAME}')]/../td[2]`
     },
     MESSAGE: '.toast-message'
 
