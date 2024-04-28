@@ -42,4 +42,8 @@ describe('Should test at a functional level', () => {
         cy.get(loc.FINANCIAL_STATEMENT.LINES).should('have.length', 7)
         cy.xpath(loc.FINANCIAL_STATEMENT.XP_SEARCH_ELEMENT).should('exist')
     })
+
+    it('Should get balance', () => {
+
+    })
 })
