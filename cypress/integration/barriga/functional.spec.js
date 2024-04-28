@@ -17,7 +17,7 @@ describe('Should test at a functional level', () => {
     it('Should update an account', () => {
         cy.login('piterct.teste@gmail.com', '123')
         cy.accessAccountMenu()
-        cy.xpath(loc.ACCOUNTS.XP_BTN_UPDATE).click()
+        cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Test account')).click()
         cy.insertAccount('Update account')
         cy.get(loc.ACCOUNTS.BTN_SAVE).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
