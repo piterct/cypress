@@ -14,7 +14,7 @@ const locators = {
     ACCOUNTS: {
         NAME: '[data-test=nome]',
         BTN_SAVE: '.btn',
-        FN_XP_BTN_UPDATE: Name => `//table//td[contains(.,'${Name}')]/..//i[@class='far fa-edit']`
+        FN_XP_BTN_UPDATE: name => `//table//td[contains(.,'${name}')]/..//i[@class='far fa-edit']`
     },
     MOVIMENTATION: {
         DESCRIPTION: '[data-test=descricao]',
@@ -26,10 +26,10 @@ const locators = {
     },
     FINANCIAL_STATEMENT: {
         LINES: '.list-group > li',
-        XP_SEARCH_ELEMENT: "//span[contains(.,'Description')]/following-sibling::small[contains(.,'250')]"
+        FN_XP_SEARCH_ELEMENT: (desc, value) => `//span[contains(.,'${desc}')]/following-sibling::small[contains(.,'${value}')]`
     },
     BALANCE: {
-        FN_XP_BALANCE_ACCOUNT: Name => `//td[contains(.,'${Name}')]/../td[2]`
+        FN_XP_BALANCE_ACCOUNT: name => `//td[contains(.,'${name}')]/../td[2]`
     },
     MESSAGE: '.toast-message'
 
