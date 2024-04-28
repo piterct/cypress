@@ -6,7 +6,7 @@ Cypress.Commands.add('accessAccountMenu', () => {
 })
 
 Cypress.Commands.add('insertAccount', account => {
-    cy.get(loc.ACCOUNTS.NAME).type(account)
+    cy.get(loc.ACCOUNTS.NAME).clear().type(account)
     cy.get(loc.ACCOUNTS.BTN_SAVE).click()
 })
 
