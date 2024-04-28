@@ -36,6 +36,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MOVIMENTATION.DESCRIPTION).clear().type('Description')
         cy.get(loc.MOVIMENTATION.VALUE).clear().type('250')
         cy.get(loc.MOVIMENTATION.INTERESTED).clear().type('Interested')
+        cy.get(loc.MOVIMENTATION.STATUS).click()
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
         cy.get(loc.FINANCIAL_STATEMENT.LINES).should('have.length', 7)
