@@ -22,7 +22,8 @@ const locators = {
         BTN_SALVE: '.btn-primary'
     },
     FINANCIAL_STATEMENT: {
-        LINES:'.list-group > li'
+        LINES:'.list-group > li',
+        XP_SEARCH_ELEMENT: "//span[contains(.,'Description')]/following-sibling::small[contains(.,'250')]"
     },
     MESSAGE: '.toast-message'
 
