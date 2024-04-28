@@ -41,7 +41,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
         cy.get(loc.FINANCIAL_STATEMENT.LINES).should('have.length', 7)
-        cy.xpath(loc.FINANCIAL_STATEMENT.XP_SEARCH_ELEMENT).should('exist')
+        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_SEARCH_ELEMENT('Description', '250')).should('exist')
     })
 
     it('Should get balance', () => {
