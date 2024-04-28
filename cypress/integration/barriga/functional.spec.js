@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-
 import loc from '../../support/locators'
 import '../../support/commandAccounts'
 
@@ -19,10 +18,15 @@ describe('Should test at a functional level', () => {
         cy.login('piterct.teste@gmail.com', '123')
         cy.accessAccountMenu()
         cy.xpath(loc.ACCOUNTS.XP_BTN_UPDATE).click()
-        cy.get(loc.ACCOUNTS.NAME)
-            .clear()
-            .type('Update account')
+        cy.insertAccount('Update account')
         cy.get(loc.ACCOUNTS.BTN_SAVE).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
+    })
+
+    it('Should not create an account with same name', () => {
+        cy.login('piterct.teste@gmail.com', '123')
+        cy.accessAccountMenu()
+        cy.insertAccount('Update account')
+        cy.get(loc.MESSAGE).should('contain', 'Request failed with status code 400')
     })
 })
