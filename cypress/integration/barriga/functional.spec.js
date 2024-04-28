@@ -29,4 +29,16 @@ describe('Should test at a functional level', () => {
         cy.insertAccount('Update account')
         cy.get(loc.MESSAGE).should('contain', 'Request failed with status code 400')
     })
+
+    it('Should create a transaction', () => {
+        cy.login('piterct.teste@gmail.com', '123')
+        cy.get(loc.MENU.MOVIMENTATION).click()
+        cy.get(loc.MOVIMENTATION.DESCRIPTION).clear().type('Description')
+        cy.get(loc.MOVIMENTATION.VALUE).clear().type('250')
+        cy.get(loc.MOVIMENTATION.INTERESTED).clear().type('Interested')
+        cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
+        cy.get(loc.MESSAGE).should('contain', 'sucesso')
+        cy.get('.list-group > li').should('have.length', 7)
+        cy.xpath("//span[contains(.,'Description')]/following-sibling::small[contains(.,'250')]").should('exist')
+    })
 })
