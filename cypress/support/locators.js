@@ -14,7 +14,7 @@ const locators = {
     ACCOUNTS: {
         NAME: '[data-test=nome]',
         BTN_SAVE: '.btn',
-        XP_BTN_UPDATE: "//table//td[contains(.,'Test account')]/..//i[@class='far fa-edit']"
+        FN_XP_BTN_UPDATE: Name => `//table//td[contains(.,'${Name}')]/..//i[@class='far fa-edit']`
     },
     MOVIMENTATION: {
         DESCRIPTION: '[data-test=descricao]',
@@ -29,7 +29,7 @@ const locators = {
         XP_SEARCH_ELEMENT: "//span[contains(.,'Description')]/following-sibling::small[contains(.,'250')]"
     },
     BALANCE: {
-        FN_XP_BALANCE_ACCOUNT: NAME => `//td[contains(.,'${NAME}')]/../td[2]`
+        FN_XP_BALANCE_ACCOUNT: Name => `//td[contains(.,'${Name}')]/../td[2]`
     },
     MESSAGE: '.toast-message'
 
