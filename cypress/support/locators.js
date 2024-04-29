@@ -9,7 +9,8 @@ const locators = {
         SETTINGS: '[data-test=menu-settings',
         ACCOUNTS: '[href="/contas"]',
         RESET: '[href="/reset"]',
-        MOVIMENTATION: '[data-test=menu-movimentacao]'
+        MOVIMENTATION: '[data-test=menu-movimentacao]',
+        FINANCIAL_STATEMENT: '[data-test=menu-extrato]'
     },
     ACCOUNTS: {
         NAME: '[data-test=nome]',
@@ -26,7 +27,8 @@ const locators = {
     },
     FINANCIAL_STATEMENT: {
         LINES: '.list-group > li',
-        FN_XP_SEARCH_ELEMENT: (desc, value) => `//span[contains(.,'${desc}')]/following-sibling::small[contains(.,'${value}')]`
+        FN_XP_SEARCH_ELEMENT: (desc, value) => `//span[contains(.,'${desc}')]/following-sibling::small[contains(.,'${value}')]`,
+        FN_XP_REMOVE_TRANSACTION: desc => `//span[contains(.,'${desc}')]/../../..//i[@class='far fa-trash-alt']`
     },
     BALANCE: {
         FN_XP_BALANCE_ACCOUNT: name => `//td[contains(.,'${name}')]/../td[2]`
