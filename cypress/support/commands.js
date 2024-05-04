@@ -19,3 +19,8 @@ Cypress.Commands.add('resetApp', () => {
     cy.get(loc.MENU.SETTINGS).click()
     cy.get(loc.MENU.RESET).click()
 })
+
+Cypress.Commands.add('logout', () => {
+    cy.get('[data-test="menu-settings"]').click()
+    cy.get('[href="/logout"]').click()
+})
