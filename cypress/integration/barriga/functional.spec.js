@@ -50,9 +50,8 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should remove a transaction', () => {
-        cy.login('piterct.teste@gmail.com', '123')
         cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
-        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_REMOVE_TRANSACTION('Description')).click()
+        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_REMOVE_TRANSACTION('Movimentacao para exclusao')).click()
         cy.get(loc.FINANCIAL_STATEMENT.LINES).should('have.length', 6)
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
     })
