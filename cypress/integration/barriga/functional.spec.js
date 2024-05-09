@@ -5,19 +5,18 @@ import '../../support/commandAccounts'
 describe('Should test at a functional level', () => {
     before(() => {
         cy.login('piterct.teste@gmail.com', '123')  
+        cy.resetApp()
         
     });
 
     it('Should create an account', () => {
-        cy.login('piterct.teste@gmail.com', '123')  
         cy.accessAccountMenu()
         cy.insertAccount('Test account')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
-        cy.resetApp()
     })
 
-    it.only('Should update an account', () => {
-        //cy.login('piterct.teste@gmail.com', '123')
+    it('Should update an account', () => {
+        cy.login('piterct.teste@gmail.com', '123')
         cy.accessAccountMenu()
         cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Conta para alterar')).click()
         cy.insertAccount('Update account')
