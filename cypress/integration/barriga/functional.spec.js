@@ -3,11 +3,13 @@ import loc from '../../support/locators'
 import '../../support/commandAccounts'
 
 describe('Should test at a functional level', () => {
-    before(() => {
-        cy.login('piterct.teste@gmail.com', '123')  
-        cy.resetApp()
-        
+    beforeEach(() => {
+        cy.login('piterct.teste@gmail.com', '123')
     });
+
+    afterEach(() => {
+        cy.resetApp()
+    })
 
     it('Should create an account', () => {
         cy.accessAccountMenu()
@@ -16,19 +18,16 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should update an account', () => {
-        cy.login('piterct.teste@gmail.com', '123')
         cy.accessAccountMenu()
         cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Conta para alterar')).click()
         cy.insertAccount('Update account')
         cy.get(loc.ACCOUNTS.BTN_SAVE).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
-        
     })
 
     it('Should not create an account with same name', () => {
-        cy.login('piterct.teste@gmail.com', '123')
         cy.accessAccountMenu()
-        cy.insertAccount('Update account')
+        cy.insertAccount('Conta mesmo nome')
         cy.get(loc.MESSAGE).should('contain', 'Request failed with status code 400')
     })
 
