@@ -45,9 +45,8 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should get balance', () => {
-        cy.login('piterct.teste@gmail.com', '123')
         cy.get(loc.MENU.HOME).click()
-        cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Update account')).should('contain', '250,00')
+        cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Conta para saldo')).should('contain', '534,00')
     })
 
     it('Should remove a transaction', () => {
