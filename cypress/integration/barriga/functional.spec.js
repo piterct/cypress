@@ -8,7 +8,7 @@ describe('Should test at a functional level', () => {
     });
 
     afterEach(() => {
-        cy.resetApp()
+      //  cy.resetApp()
     })
 
     it('Should create an account', () => {
@@ -44,9 +44,13 @@ describe('Should test at a functional level', () => {
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_SEARCH_ELEMENT('Description', '250')).should('exist')
     })
 
-    it('Should get balance', () => {
+    it.only('Should get balance', () => {
         cy.get(loc.MENU.HOME).click()
         cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Conta para saldo')).should('contain', '534,00')
+
+        cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
+        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_UPDATE_TRANSACTION('Movimentacao 1, calculo saldo')).click()
+
     })
 
     it('Should remove a transaction', () => {
