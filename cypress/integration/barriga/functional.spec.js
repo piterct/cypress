@@ -32,12 +32,11 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should create a transaction', () => {
-        cy.login('piterct.teste@gmail.com', '123')
         cy.get(loc.MENU.MOVIMENTATION).click()
         cy.get(loc.MOVIMENTATION.DESCRIPTION).clear().type('Description')
         cy.get(loc.MOVIMENTATION.VALUE).clear().type('250')
         cy.get(loc.MOVIMENTATION.INTERESTED).clear().type('Interested')
-        cy.get(loc.MOVIMENTATION.ACCOUNT).select('Update account')
+        cy.get(loc.MOVIMENTATION.ACCOUNT).select('Conta para movimentacoes')
         cy.get(loc.MOVIMENTATION.STATUS).click()
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
