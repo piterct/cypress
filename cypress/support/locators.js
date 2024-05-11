@@ -35,8 +35,6 @@ const locators = {
         FN_XP_BALANCE_ACCOUNT: name => `//td[contains(.,'${name}')]/../td[2]`
     },
     MESSAGE: '.toast-message'
-
-
 }
 
 export default locators;
