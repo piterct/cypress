@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-
 describe('Work with basic alerts', () => {
     beforeEach(() => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
