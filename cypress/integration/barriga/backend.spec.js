@@ -1,9 +1,13 @@
 /// <reference types="cypress" />
 
 describe('Should test at a functional level', () => {
-    
+    let token;
+
     beforeEach(() => {
-        //cy.login('piterct.teste@gmail.com', '123')
+        cy.getToken('piterct.teste@gmail.com', '123')
+            .then(tkn => {
+                token = tkn;
+            })
     });
 
     afterEach(() => {
@@ -11,15 +15,12 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should create an account', () => {
-        cy.getToken('piterct.teste@gmail.com', '123')
-            .then(token => {
-                cy.request({
-                    method: 'POST',
-                    headers: { Authorization: `JWT ${token}` },
-                    url: 'https://barrigarest.wcaquino.me/contas',
-                    body: { nome: "conta qualquer4545" }
-                }).as('response')
-            })
+        cy.request({
+            method: 'POST',
+            headers: { Authorization: `JWT ${token}` },
+            url: 'https://barrigarest.wcaquino.me/contas',
+            body: { nome: "conta qualquer4545" }
+        }).as('response')
 
         cy.get('@response').then(res => {
             expect(res.status).to.be.equal(201)
