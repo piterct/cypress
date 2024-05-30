@@ -28,7 +28,7 @@ Cypress.Commands.add('logout', () => {
 Cypress.Commands.add('getToken', (user, password) => {
     cy.request({
         method: 'POST',
-        url: 'https://barrigarest.wcaquino.me/signin',
+        url: '/signin',
         body: {
             email: user,
             redirecionar: false,
@@ -44,6 +44,6 @@ Cypress.Commands.add('resetRest', (token) => {
     cy.request({
         method: 'GET',
         headers: { Authorization: `JWT ${token}` },
-        url: 'https://barrigarest.wcaquino.me/reset'
+        url: '/reset'
     }).its('status').should('be.equal', 200)
 })
