@@ -25,9 +25,14 @@ describe('Should test at a functional level', () => {
                     headers: { Authorization: `JWT ${token}` },
                     url: 'https://barrigarest.wcaquino.me/contas',
                     body: { nome: "conta qualquer4545" }
-                }).then(res => console.log(res))
+                }).as('response')
             })
-
+     
+            cy.get('@response').then(res => {
+                expect(res.status).to.be.equal(201)
+                expect(res.body).to.be.property('id')
+                expect(res.body).to.have.property('nome', 'conta qualquer4545')
+            })
 
     })
 
