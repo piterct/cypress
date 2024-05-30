@@ -11,7 +11,7 @@ describe('Should test at a functional level', () => {
     });
 
     afterEach(() => {
-        cy.resetRest()
+        cy.resetRest(token)
     })
 
     it('Should create an account', () => {
