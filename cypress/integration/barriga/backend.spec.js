@@ -10,26 +10,34 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should create an account', () => {
-       
+        cy.request({
+            method: 'POST',
+            url: 'https://barrigarest.wcaquino.me/signin',
+            body: {
+                email: "piterct.teste@gmail.com",
+                redirecionar: false,
+                senha: "123"
+            }
+        }).then(res => console.log(res))
     })
 
     it('Should update an account', () => {
-       
+
     })
 
     it('Should not create an account with same name', () => {
-        
+
     })
 
     it('Should create a transaction', () => {
-        
+
     })
 
     it('Should get balance', () => {
-        
+
     })
 
     it('Should remove a transaction', () => {
-       
+
     })
 })
