@@ -18,7 +18,7 @@ describe('Should test at a functional level', () => {
                 redirecionar: false,
                 senha: "123"
             }
-        }).then(res => console.log(res))
+        }).its('body.token').should('not.be.empty')
     })
 
     it('Should update an account', () => {
