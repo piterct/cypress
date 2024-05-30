@@ -18,7 +18,7 @@ describe('Should test at a functional level', () => {
         cy.request({
             method: 'POST',
             headers: { Authorization: `JWT ${token}` },
-            url: 'https://barrigarest.wcaquino.me/contas',
+            url: '/contas',
             body: { nome: "conta qualquer" }
         }).as('response')
 
