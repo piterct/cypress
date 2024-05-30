@@ -19,6 +19,16 @@ describe('Should test at a functional level', () => {
                 senha: "123"
             }
         }).its('body.token').should('not.be.empty')
+            .then(token => {
+                cy.request({
+                    method: 'POST',
+                    headers: { Authorization: `JWT ${token}` },
+                    url: 'https://barrigarest.wcaquino.me/contas',
+                    body: { nome: "conta qualquer4545" }
+                }).then(res => console.log(res))
+            })
+
+
     })
 
     it('Should update an account', () => {
