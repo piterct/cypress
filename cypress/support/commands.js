@@ -24,3 +24,18 @@ Cypress.Commands.add('logout', () => {
     cy.get('[data-test="menu-settings"]').click()
     cy.get('[href="/logout"]').click()
 })
+
+Cypress.Commands.add('getToken', (user, password) => {
+    cy.request({
+        method: 'POST',
+        url: 'https://barrigarest.wcaquino.me/signin',
+        body: {
+            email: user,
+            redirecionar: false,
+            senha: password
+        }
+    }).its('body.token').should('not.be.empty')
+        .then(token => {
+            return token;
+        })
+})
