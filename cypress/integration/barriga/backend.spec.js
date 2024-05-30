@@ -11,7 +11,7 @@ describe('Should test at a functional level', () => {
     });
 
     afterEach(() => {
-        //cy.resetApp()
+        cy.resetRest()
     })
 
     it('Should create an account', () => {
@@ -19,15 +19,14 @@ describe('Should test at a functional level', () => {
             method: 'POST',
             headers: { Authorization: `JWT ${token}` },
             url: 'https://barrigarest.wcaquino.me/contas',
-            body: { nome: "conta qualquer4545" }
+            body: { nome: "conta qualquer" }
         }).as('response')
 
         cy.get('@response').then(res => {
             expect(res.status).to.be.equal(201)
             expect(res.body).to.be.property('id')
-            expect(res.body).to.have.property('nome', 'conta qualquer4545')
+            expect(res.body).to.have.property('nome', 'conta qualquer')
         })
-
     })
 
     it('Should update an account', () => {
