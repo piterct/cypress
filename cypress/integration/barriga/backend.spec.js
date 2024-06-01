@@ -11,7 +11,7 @@ describe('Should test at a functional level', () => {
     });
 
     afterEach(() => {
-        cy.resetRest(token)
+       cy.resetRest(token)
     })
 
     it('Should create an account', () => {
@@ -19,26 +19,34 @@ describe('Should test at a functional level', () => {
             method: 'POST',
             headers: { Authorization: `JWT ${token}` },
             url: '/contas',
-            body: { nome: "conta qualquer" }
+            body: { nome: "any account" }
         }).as('response')
 
         cy.get('@response').then(res => {
             expect(res.status).to.be.equal(201)
             expect(res.body).to.be.property('id')
-            expect(res.body).to.have.property('nome', 'conta qualquer')
+            expect(res.body).to.have.property('nome', 'any account')
         })
     })
 
-    it('Should update an account', () => {
+    it.only('Should update an account', () => {
         cy.request({
-            method: 'PUT',
+            method: 'GET',
             headers: { Authorization: `JWT ${token}` },
-            url: '/contas/2145313',
-            body: { nome: "Conta com movimentacao alterada" }
-        }).as('response')
+            url: '/contas',
+            qs: {
+                nome: 'Conta para alterar'
+            }
+        }).then(res => {
+            cy.request({
+                method: 'PUT',
+                headers: { Authorization: `JWT ${token}` },
+                url: `/contas/${res.body[0].id}`,
+                body: { nome: "Updated account by rest" }
+            }).as('response')
 
-
-        cy.get('@response').its('status').should('be.equal', 200)
+            cy.get('@response').its('status').should('be.equal', 200)
+        })
     })
 
     it('Should not create an account with same name', () => {
