@@ -60,9 +60,8 @@ describe('Should test at a functional level', () => {
 
         cy.get('@response').then(res => {
             console.log(res)
-            expect(res.status).to.be.equal(201)
-            expect(res.body).to.be.property('id')
-            expect(res.body).to.have.property('nome', 'any account')
+            expect(res.status).to.be.equal(400)
+            expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!')
         })
 
     })
