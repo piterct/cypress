@@ -54,7 +54,8 @@ describe('Should test at a functional level', () => {
             method: 'POST',
             headers: { Authorization: `JWT ${token}` },
             url: '/contas',
-            body: { nome: "Conta mesmo nome" }
+            body: { nome: "Conta mesmo nome" },
+            failOnStatusCode : false
         }).as('response')
 
         cy.get('@response').then(res => {
