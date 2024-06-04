@@ -29,7 +29,7 @@ describe('Should test at a functional level', () => {
         })
     })
 
-    it.only('Should update an account', () => {
+    it('Should update an account', () => {
         cy.request({
             method: 'GET',
             headers: { Authorization: `JWT ${token}` },
@@ -50,6 +50,19 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should not create an account with same name', () => {
+        cy.request({
+            method: 'POST',
+            headers: { Authorization: `JWT ${token}` },
+            url: '/contas',
+            body: { nome: "Conta mesmo nome" }
+        }).as('response')
+
+        cy.get('@response').then(res => {
+            console.log(res)
+            expect(res.status).to.be.equal(201)
+            expect(res.body).to.be.property('id')
+            expect(res.body).to.have.property('nome', 'any account')
+        })
 
     })
 
