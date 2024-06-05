@@ -76,16 +76,15 @@ describe('Should test at a functional level', () => {
                     body: {
                         conta_id: accountId,
                         data_pagamento: formatDate(now, 1),
-                        data_transacao: '04/06/2024',
-                        descricao: "Teste de movimentacao",
-                        envolvido: "Joao",
-                        status: false,
+                        data_transacao: formatDate(now),
+                        descricao: "des",
+                        envolvido: "inter",
+                        status: true,
                         tipo: "REC",
-                        valor: "2500"
+                        valor: "123"
                     },
                 })
             })
-
     })
 
     it('Should get balance', () => {
