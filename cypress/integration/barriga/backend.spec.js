@@ -30,23 +30,17 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should update an account', () => {
-        cy.request({
-            method: 'GET',
-            headers: { Authorization: `JWT ${token}` },
-            url: '/contas',
-            qs: {
-                nome: 'Conta para alterar'
-            }
-        }).then(res => {
-            cy.request({
-                method: 'PUT',
-                headers: { Authorization: `JWT ${token}` },
-                url: `/contas/${res.body[0].id}`,
-                body: { nome: "Updated account by rest" }
-            }).as('response')
+        cy.getAccountByName('Conta para alterar')
+            .then(accountId => {
+                cy.request({
+                    method: 'PUT',
+                    headers: { Authorization: `JWT ${token}` },
+                    url: `/contas/${accountId}`,
+                    body: { nome: "Updated account by rest" }
+                }).as('response')
 
-            cy.get('@response').its('status').should('be.equal', 200)
-        })
+                cy.get('@response').its('status').should('be.equal', 200)
+            })
     })
 
     it('Should not create an account with same name', () => {
@@ -65,7 +59,7 @@ describe('Should test at a functional level', () => {
 
     })
 
-    it.only('Should create a transaction', () => {
+    it('Should create a transaction', () => {
         cy.getAccountByName('Conta para movimentacoes')
             .then(accountId => {
                 const now = new Date();
