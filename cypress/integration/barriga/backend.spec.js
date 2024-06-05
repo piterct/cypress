@@ -68,14 +68,15 @@ describe('Should test at a functional level', () => {
     it.only('Should create a transaction', () => {
         cy.getAccountByName('Conta para movimentacoes')
             .then(accountId => {
+                const now = new Date();
                 cy.request({
                     method: 'POST',
                     url: '/transacoes',
                     headers: { Authorization: `JWT ${token}` },
                     body: {
                         conta_id: accountId,
-                        data_pagamento: "04/06/2024",
-                        data_transacao: "04/06/2024",
+                        data_pagamento: formatDate(now, 1),
+                        data_transacao: '04/06/2024',
                         descricao: "Teste de movimentacao",
                         envolvido: "Joao",
                         status: false,
@@ -94,4 +95,21 @@ describe('Should test at a functional level', () => {
     it('Should remove a transaction', () => {
 
     })
+
+    function formatDate(date, days = 0) {
+        let newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + days);
+
+        let day = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+        return `${day}/${month}/${year}`;
+    }
 })
