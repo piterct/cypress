@@ -47,3 +47,7 @@ Cypress.Commands.add('resetRest', (token) => {
         url: '/reset'
     }).its('status').should('be.equal', 200)
 })
+
+Cypress.Commands.add('getContaByName', () => {
+
+})
