@@ -84,7 +84,10 @@ describe('Should test at a functional level', () => {
                         valor: "123"
                     },
                 })
-            })
+            }).as('response')
+
+        cy.get('@response').its('status').should('be.equal', 201)
+        cy.get('@response').its('body.id').should('exist')
     })
 
     it('Should get balance', () => {
