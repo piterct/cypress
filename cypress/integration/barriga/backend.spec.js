@@ -66,21 +66,25 @@ describe('Should test at a functional level', () => {
     })
 
     it.only('Should create a transaction', () => {
-        cy.request({
-            method: 'POST',
-            url: '/transacoes',
-            headers: { Authorization: `JWT ${token}` },
-            body: {
-                conta_id: "2147637",
-                data_pagamento: "04/06/2024",
-                data_transacao: "04/06/2024",
-                descricao: "Teste de movimentacao",
-                envolvido: "Joao",
-                status: false,
-                tipo: "REC",
-                valor: "2500"
-            },
-        })
+        cy.getAccountByName('Conta para movimentacoes')
+            .then(accountId => {
+                cy.request({
+                    method: 'POST',
+                    url: '/transacoes',
+                    headers: { Authorization: `JWT ${token}` },
+                    body: {
+                        conta_id: accountId,
+                        data_pagamento: "04/06/2024",
+                        data_transacao: "04/06/2024",
+                        descricao: "Teste de movimentacao",
+                        envolvido: "Joao",
+                        status: false,
+                        tipo: "REC",
+                        valor: "2500"
+                    },
+                })
+            })
+
     })
 
     it('Should get balance', () => {
