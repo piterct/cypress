@@ -11,7 +11,7 @@ describe('Should test at a functional level', () => {
     });
 
     afterEach(() => {
-       cy.resetRest(token)
+        cy.resetRest(token)
     })
 
     it('Should create an account', () => {
@@ -55,19 +55,32 @@ describe('Should test at a functional level', () => {
             headers: { Authorization: `JWT ${token}` },
             url: '/contas',
             body: { nome: "Conta mesmo nome" },
-            failOnStatusCode : false
+            failOnStatusCode: false
         }).as('response')
 
         cy.get('@response').then(res => {
-            console.log(res)
             expect(res.status).to.be.equal(400)
             expect(res.body.error).to.be.equal('Já existe uma conta com esse nome!')
         })
 
     })
 
-    it('Should create a transaction', () => {
-
+    it.only('Should create a transaction', () => {
+        cy.request({
+            method: 'POST',
+            url: '/transacoes',
+            headers: { Authorization: `JWT ${token}` },
+            body: {
+                conta_id: "2147637",
+                data_pagamento: "04/06/2024",
+                data_transacao: "04/06/2024",
+                descricao: "Teste de movimentacao",
+                envolvido: "Joao",
+                status: false,
+                tipo: "REC",
+                valor: "2500"
+            },
+        })
     })
 
     it('Should get balance', () => {
