@@ -97,10 +97,19 @@ describe('Should test at a functional level', () => {
                     accountBalance = account;
                 }
             });
-            debugger;
             expect(accountBalance.saldo).to.be.equal('534.00')
         })
+
+        cy.request({
+            method: 'PUT',
+            url: '/transacoes/:id',
+            headers: { Authorization: `JWT ${token}` },
+            body: {
+                status: true,
+            },
+        }).its('status').should('be.equal', 200)
     })
+
 
     it('Should remove a transaction', () => {
 
