@@ -84,8 +84,19 @@ describe('Should test at a functional level', () => {
         cy.get('@response').its('body.id').should('exist')
     })
 
-    it('Should get balance', () => {
+    it.only('Should get balance', () => {
+        cy.request({
+            method: 'GET',
+            url: '/saldo',
+            headers: { Authorization: `JWT ${token}` },
+        }).then(res => {
+            
+            res.body.forEach(account => {
+                if (account.conta === "Conta para saldo"){
 
+                }
+            });
+        })
     })
 
     it('Should remove a transaction', () => {
