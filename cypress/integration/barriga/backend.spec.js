@@ -85,17 +85,20 @@ describe('Should test at a functional level', () => {
     })
 
     it.only('Should get balance', () => {
+        let accountBalance = null;
         cy.request({
             method: 'GET',
             url: '/saldo',
             headers: { Authorization: `JWT ${token}` },
         }).then(res => {
-            
+            cy.log(res)
             res.body.forEach(account => {
-                if (account.conta === "Conta para saldo"){
-
+                if (account.conta === "Conta para saldo") {
+                    accountBalance = account;
                 }
             });
+            debugger;
+            expect(accountBalance.saldo).to.be.equal('534.00')
         })
     })
 
