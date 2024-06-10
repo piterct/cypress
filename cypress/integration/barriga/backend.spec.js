@@ -91,7 +91,6 @@ describe('Should test at a functional level', () => {
             url: '/saldo',
             headers: { Authorization: `JWT ${token}` },
         }).then(res => {
-            cy.log(res)
             res.body.forEach(account => {
                 if (account.conta === "Conta para saldo") {
                     accountBalance = account;
@@ -101,13 +100,28 @@ describe('Should test at a functional level', () => {
         })
 
         cy.request({
-            method: 'PUT',
-            url: '/transacoes/:id',
+            method: 'GET',
+            url: '/transacoes',
             headers: { Authorization: `JWT ${token}` },
-            body: {
-                status: true,
-            },
-        }).its('status').should('be.equal', 200)
+            qs: { descricao: 'Movimentacao 1, calculo saldo' }
+        }).then(res => {
+            cy.log(res)
+            cy.request({
+                method: 'PUT',
+                url: `/transacoes/${res.body[0].id}`,
+                headers: { Authorization: `JWT ${token}` },
+                body: {
+                    status: true,
+                    data_transacao: convertToDDMMYYYY(res.body[0].data_transacao),
+                    data_pagamento: convertToDDMMYYYY(res.body[0].data_pagamento),
+                    descricao: res.body[0].descricao,
+                    envolvido: res.body[0].envolvido,
+                    valor: res.body[0].valor,
+                    conta_id: res.body[0].conta_id
+                },
+            }).its('status').should('be.equal', 200)
+        })
+
     })
 
 
@@ -129,6 +143,16 @@ describe('Should test at a functional level', () => {
         if (month < 10) {
             month = '0' + month;
         }
+        return `${day}/${month}/${year}`;
+    }
+
+    function convertToDDMMYYYY(dateString) {
+        const date = new Date(dateString);
+        
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); 
+        const year = date.getUTCFullYear();
+
         return `${day}/${month}/${year}`;
     }
 })
