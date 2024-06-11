@@ -17,7 +17,6 @@ describe('Should test at a functional level', () => {
     it('Should create an account', () => {
         cy.request({
             method: 'POST',
-            headers: { Authorization: `JWT ${token}` },
             url: '/contas',
             body: { nome: "any account" }
         }).as('response')
