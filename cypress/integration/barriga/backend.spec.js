@@ -123,7 +123,6 @@ describe('Should test at a functional level', () => {
         cy.request({
             method: 'GET',
             url: '/saldo',
-            headers: { Authorization: `JWT ${token}` },
         }).then(res => {
             res.body.forEach(account => {
                 if (account.conta === "Conta para saldo") {
