@@ -1,17 +1,13 @@
 /// <reference types="cypress" />
 
 describe('Should test at a functional level', () => {
-    let token;
 
     beforeEach(() => {
         cy.getToken('piterct.teste@gmail.com', '123')
-            .then(tkn => {
-                token = tkn;
-            })
     });
 
     afterEach(() => {
-        cy.resetRest(token)
+        cy.resetRest()
     })
 
     it('Should create an account', () => {
