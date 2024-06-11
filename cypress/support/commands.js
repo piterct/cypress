@@ -36,7 +36,6 @@ Cypress.Commands.add('getToken', (user, password) => {
         }
     }).its('body.token').should('not.be.empty')
         .then(token => {
-            debugger;
             Cypress.env('token', token)
             return token;
         })
