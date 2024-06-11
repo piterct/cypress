@@ -66,7 +66,6 @@ describe('Should test at a functional level', () => {
                 cy.request({
                     method: 'POST',
                     url: '/transacoes',
-                    headers: { Authorization: `JWT ${token}` },
                     body: {
                         conta_id: accountId,
                         data_pagamento: formatDate(now, 1),
