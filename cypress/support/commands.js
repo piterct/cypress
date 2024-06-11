@@ -45,7 +45,6 @@ Cypress.Commands.add('getToken', (user, password) => {
 Cypress.Commands.add('resetRest', (token) => {
     cy.request({
         method: 'GET',
-        headers: { Authorization: `JWT ${token}` },
         url: '/reset'
     }).its('status').should('be.equal', 200)
 })
