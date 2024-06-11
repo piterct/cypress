@@ -54,7 +54,6 @@ Cypress.Commands.add('getAccountByName', name => {
     cy.getToken('piterct.teste@gmail.com', '123').then(token => {
         cy.request({
             method: 'GET',
-            headers: { Authorization: `JWT ${token}` },
             url: '/contas',
             qs: {
                 nome: name
