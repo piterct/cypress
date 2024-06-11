@@ -101,13 +101,11 @@ describe('Should test at a functional level', () => {
         cy.request({
             method: 'GET',
             url: '/transacoes',
-            headers: { Authorization: `JWT ${token}` },
             qs: { descricao: 'Movimentacao 1, calculo saldo' }
         }).then(res => {
             cy.request({
                 method: 'PUT',
                 url: `/transacoes/${res.body[0].id}`,
-                headers: { Authorization: `JWT ${token}` },
                 body: {
                     status: true,
                     data_transacao: convertToDDMMYYYY(res.body[0].data_transacao),
