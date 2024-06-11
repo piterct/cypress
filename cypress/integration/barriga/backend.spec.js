@@ -46,7 +46,6 @@ describe('Should test at a functional level', () => {
     it('Should not create an account with same name', () => {
         cy.request({
             method: 'POST',
-            headers: { Authorization: `JWT ${token}` },
             url: '/contas',
             body: { nome: "Conta mesmo nome" },
             failOnStatusCode: false
