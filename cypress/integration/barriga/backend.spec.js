@@ -89,7 +89,6 @@ describe('Should test at a functional level', () => {
         cy.request({
             method: 'GET',
             url: '/saldo',
-            headers: { Authorization: `JWT ${token}` },
         }).then(res => {
             res.body.forEach(account => {
                 if (account.conta === "Conta para saldo") {
@@ -136,7 +135,7 @@ describe('Should test at a functional level', () => {
     })
 
 
-    it.only('Should remove a transaction', () => {
+    it('Should remove a transaction', () => {
         cy.request({
             method: 'GET',
             url: '/transacoes',
