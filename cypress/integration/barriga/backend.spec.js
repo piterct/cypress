@@ -34,7 +34,6 @@ describe('Should test at a functional level', () => {
             .then(accountId => {
                 cy.request({
                     method: 'PUT',
-                    headers: { Authorization: `JWT ${token}` },
                     url: `/contas/${accountId}`,
                     body: { nome: "Updated account by rest" }
                 }).as('response')
