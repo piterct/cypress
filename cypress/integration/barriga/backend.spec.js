@@ -84,7 +84,7 @@ describe('Should test at a functional level', () => {
         cy.get('@response').its('body.id').should('exist')
     })
 
-    it.only('Should get balance', () => {
+    it('Should get balance', () => {
         let accountBalance = null;
         cy.request({
             method: 'GET',
@@ -105,7 +105,6 @@ describe('Should test at a functional level', () => {
             headers: { Authorization: `JWT ${token}` },
             qs: { descricao: 'Movimentacao 1, calculo saldo' }
         }).then(res => {
-            cy.log(res)
             cy.request({
                 method: 'PUT',
                 url: `/transacoes/${res.body[0].id}`,
@@ -122,11 +121,35 @@ describe('Should test at a functional level', () => {
             }).its('status').should('be.equal', 200)
         })
 
+        cy.request({
+            method: 'GET',
+            url: '/saldo',
+            headers: { Authorization: `JWT ${token}` },
+        }).then(res => {
+            res.body.forEach(account => {
+                if (account.conta === "Conta para saldo") {
+                    accountBalance = account;
+                }
+            });
+            expect(accountBalance.saldo).to.be.equal('4034.00')
+        })
     })
 
 
-    it('Should remove a transaction', () => {
-
+    it.only('Should remove a transaction', () => {
+        cy.request({
+            method: 'GET',
+            url: '/transacoes',
+            headers: { Authorization: `JWT ${token}` },
+            qs: { descricao: 'Movimentacao para exclusao' }
+        }).then(res => {
+            cy.log(res)
+            cy.request({
+                method: 'DELETE',
+                url: `/transacoes/${res.body[0].id}`,
+                headers: { Authorization: `JWT ${token}` },
+            }).its('status').should('be.equal', 204)
+        })
     })
 
     function formatDate(date, days = 0) {
@@ -148,9 +171,9 @@ describe('Should test at a functional level', () => {
 
     function convertToDDMMYYYY(dateString) {
         const date = new Date(dateString);
-        
+
         const day = String(date.getUTCDate()).padStart(2, '0');
-        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); 
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
         const year = date.getUTCFullYear();
 
         return `${day}/${month}/${year}`;
