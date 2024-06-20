@@ -1,16 +1,20 @@
 /// <reference types="cypress" />
 import loc from '../../support/locators'
 import '../../support/commandAccounts'
+const USER = 'piterct.teste@gmail.com';
+const PASSWORD = '123';
+
 
 describe('Should test at a functional level', () => {
     beforeEach(() => {
-        cy.login('piterct.teste@gmail.com', '123')
+        cy.login(USER, PASSWORD)
     });
 
     afterEach(() => {
         cy.resetApp()
     })
     after(() => {
+        cy.getToken(USER, PASSWORD)
         cy.resetRest()
     })
 
@@ -53,7 +57,7 @@ describe('Should test at a functional level', () => {
 
         cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_UPDATE_TRANSACTION('Movimentacao 1, calculo saldo')).click()
-        cy.get(loc.MOVIMENTATION.DESCRIPTION).should('have.value','Movimentacao 1, calculo saldo')
+        cy.get(loc.MOVIMENTATION.DESCRIPTION).should('have.value', 'Movimentacao 1, calculo saldo')
         cy.get(loc.MOVIMENTATION.STATUS).click()
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
