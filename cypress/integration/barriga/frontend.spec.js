@@ -17,6 +17,18 @@ describe('Should test at a functional level', () => {
                 token: "A big string"
             }
         ).as('signin')
+
+
+        cy.intercept({
+            method: 'GET',
+            url: '/saldo',
+        },
+            [
+                { conta_id: 999, conta: "Wallet", saldo: "100.00" },
+                { conta_id: 9909, conta: "Bank", saldo: "10000000.00" },
+            ]
+        ).as('saldo')
+
         cy.login(USER, PASSWORD)
     });
 
