@@ -2,11 +2,21 @@
 import loc from '../../support/locators'
 import '../../support/commandAccounts'
 const USER = 'piterct.teste@gmail.com';
-const PASSWORD = '123';
+const PASSWORD = 'Wrong password';
 
 
 describe('Should test at a functional level', () => {
     beforeEach(() => {
+        cy.intercept({
+            method: 'POST',
+            url: '/signin',
+        },
+            {
+                id: 50314,
+                nome: "False User",
+                token: "A big string"
+            }
+        ).as('signin')
         cy.login(USER, PASSWORD)
     });
 
