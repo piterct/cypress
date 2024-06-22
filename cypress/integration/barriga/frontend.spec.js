@@ -27,7 +27,7 @@ describe('Should test at a functional level', () => {
                 { conta_id: 999, conta: "Wallet", saldo: "100.00" },
                 { conta_id: 9909, conta: "Bank", saldo: "10000000.00" },
             ]
-        ).as('saldo')
+        ).as('balance')
         cy.login(USER, PASSWORD)
     });
 
@@ -44,14 +44,32 @@ describe('Should test at a functional level', () => {
         cy.intercept({
             method: 'GET',
             url: '/contas'
-        }, 
+        },
             [
                 { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
                 { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
             ]
-        ).as('contas')
+        ).as('accounts')
 
+        cy.intercept({
+            method: 'POST',
+            url: '/contas'
+        },
+            { id: 3, nome: "Test account", visivel: true, usuario_id: 1 }
+        )
+      
         cy.accessAccountMenu()
+
+        cy.intercept({
+            method: 'GET',
+            url: '/contas'
+        },
+            [
+                { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
+                { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
+                { id: 3, nome: "Test account", visivel: true, usuario_id: 1 },
+            ]
+        ).as('savedAccounts')
         cy.insertAccount('Test account')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
