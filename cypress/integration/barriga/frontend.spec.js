@@ -6,7 +6,7 @@ const PASSWORD = 'Wrong password';
 
 
 describe('Should test at a functional level', () => {
-    before(() => {
+    beforeEach(() => {
         cy.intercept({
             method: 'POST',
             url: '/signin',
@@ -31,11 +31,7 @@ describe('Should test at a functional level', () => {
         cy.login(USER, PASSWORD)
     });
 
-    beforeEach(() => {
-        cy.get(loc.MENU.HOME).click()
-    })
-
-    after(() => {
+    afterEach(() => {
         cy.clearLocalStorage()
     })
 
@@ -57,9 +53,8 @@ describe('Should test at a functional level', () => {
         },
             { id: 3, nome: "Test account", visivel: true, usuario_id: 1 }
         )
-      
-        cy.accessAccountMenu()
 
+        cy.accessAccountMenu()
         cy.intercept({
             method: 'GET',
             url: '/contas'
@@ -70,6 +65,7 @@ describe('Should test at a functional level', () => {
                 { id: 3, nome: "Test account", visivel: true, usuario_id: 1 },
             ]
         ).as('savedAccounts')
+
         cy.insertAccount('Test account')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
@@ -86,15 +82,28 @@ describe('Should test at a functional level', () => {
         ).as('accounts')
 
         cy.intercept({
-            method: 'POST',
-            url: '/contas'
+            method: 'PUT',
+            url: '/contas/**'
         },
-            { id: 3, nome: "Test account", visivel: true, usuario_id: 1 }
+            { id: 1, nome: "Update account", visivel: true, usuario_id: 1 }
         )
 
         cy.accessAccountMenu()
+
         cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Wallet')).click()
-        cy.insertAccount('Update account')
+        cy.get(loc.ACCOUNTS.NAME)
+            .clear()
+            .type('Update account')
+
+        cy.intercept({
+            method: 'GET',
+            url: '/contas'
+        },
+            [
+                { id: 1, nome: "Update account", visivel: true, usuario_id: 1 },
+                { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
+            ]
+        ).as('savedAccounts')
         cy.get(loc.ACCOUNTS.BTN_SAVE).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
     })
