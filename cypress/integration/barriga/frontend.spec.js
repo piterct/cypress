@@ -6,7 +6,7 @@ const PASSWORD = 'Wrong password';
 
 
 describe('Should test at a functional level', () => {
-    beforeEach(() => {
+    before(() => {
         cy.intercept({
             method: 'POST',
             url: '/signin',
@@ -31,16 +31,26 @@ describe('Should test at a functional level', () => {
         cy.login(USER, PASSWORD)
     });
 
-    afterEach(() => {
-        cy.resetApp()
-        cy.clearLocalStorage()
-    })
-    after(() => {
-        cy.getToken(USER, PASSWORD)
-        cy.resetRest()
+    beforeEach(() => {
+        cy.get(loc.MENU.HOME).click()
     })
 
-    it('Should create an account', () => {
+    after(() => {
+        cy.clearLocalStorage()
+    })
+
+
+    it.only('Should create an account', () => {
+        cy.intercept({
+            method: 'GET',
+            url: '/contas'
+        }, 
+            [
+                { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
+                { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
+            ]
+        ).as('contas')
+
         cy.accessAccountMenu()
         cy.insertAccount('Test account')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
