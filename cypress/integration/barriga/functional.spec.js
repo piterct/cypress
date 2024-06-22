@@ -20,7 +20,9 @@ describe('Should test at a functional level', () => {
     it('Should update an account', () => {
         cy.accessAccountMenu()
         cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Conta para alterar')).click()
-        cy.insertAccount('Update account')
+        cy.get(loc.ACCOUNTS.NAME)
+            .clear()
+            .type('Update account')
         cy.get(loc.ACCOUNTS.BTN_SAVE).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
     })
@@ -50,7 +52,7 @@ describe('Should test at a functional level', () => {
 
         cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_UPDATE_TRANSACTION('Movimentacao 1, calculo saldo')).click()
-        cy.get(loc.MOVIMENTATION.DESCRIPTION).should('have.value','Movimentacao 1, calculo saldo')
+        cy.get(loc.MOVIMENTATION.DESCRIPTION).should('have.value', 'Movimentacao 1, calculo saldo')
         cy.get(loc.MOVIMENTATION.STATUS).click()
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
