@@ -40,7 +40,7 @@ describe('Should test at a functional level', () => {
     })
 
 
-    it.only('Should create an account', () => {
+    it('Should create an account', () => {
         cy.intercept({
             method: 'GET',
             url: '/contas'
@@ -74,9 +74,26 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
 
-    it('Should update an account', () => {
+    it.only('Should update an account', () => {
+        cy.intercept({
+            method: 'GET',
+            url: '/contas'
+        },
+            [
+                { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
+                { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
+            ]
+        ).as('accounts')
+
+        cy.intercept({
+            method: 'POST',
+            url: '/contas'
+        },
+            { id: 3, nome: "Test account", visivel: true, usuario_id: 1 }
+        )
+
         cy.accessAccountMenu()
-        cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Conta para alterar')).click()
+        cy.xpath(loc.ACCOUNTS.FN_XP_BTN_UPDATE('Wallet')).click()
         cy.insertAccount('Update account')
         cy.get(loc.ACCOUNTS.BTN_SAVE).click()
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
