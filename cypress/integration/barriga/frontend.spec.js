@@ -28,12 +28,12 @@ describe('Should test at a functional level', () => {
                 { conta_id: 9909, conta: "Bank", saldo: "10000000.00" },
             ]
         ).as('saldo')
-
         cy.login(USER, PASSWORD)
     });
 
     afterEach(() => {
         cy.resetApp()
+        cy.clearLocalStorage()
     })
     after(() => {
         cy.getToken(USER, PASSWORD)
