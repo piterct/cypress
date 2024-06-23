@@ -249,7 +249,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
 
-    it.only('Should test colors', () => {
+    it('Should test colors', () => {
         cy.intercept({
             method: 'GET',
             url: '/extrato/**'
@@ -285,7 +285,6 @@ describe('Should test at a functional level', () => {
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Receita pendente')).should('have.class', 'receitaPendente')
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Despesa paga')).should('have.class', 'despesaPaga')
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Despesa pendente')).should('have.class', 'despesaPendente')
-       
-
     })
+
 })
