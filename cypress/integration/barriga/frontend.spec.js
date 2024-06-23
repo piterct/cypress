@@ -219,7 +219,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
     })
 
-    it.only('Should validate data send create an account', () => {
+    it('Should validate data send create an account', () => {
         cy.intercept({
             method: 'POST',
             url: '/contas'
@@ -247,5 +247,41 @@ describe('Should test at a functional level', () => {
         cy.insertAccount('{CONTROL}')
         cy.wait('@saveAccount').its('request.body.nome').should('be.empty')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
+    })
+
+    it.only('Should test colors', () => {
+        cy.intercept({
+            method: 'GET',
+            url: '/extrato/**'
+        },
+            {
+                statusCode: 200,
+                body: [
+                    {
+                        conta: "Conta para movimentacoes", id: 2031036, descricao: "Receita paga", envolvido: "AAA", observacao: null, tipo: "REC",
+                        data_transacao: "2024-06-23T03:00:00.000Z", data_pagamento: "2024-06-23T03:00:00.000Z", valor: "-1500.00", status: true, conta_id: 2165573,
+                        usuario_id: 50314, transferencia_id: null, parcelamento_id: null
+                    },
+                    {
+                        conta: "Conta com movimentacao", id: 2031037, descricao: "Receita pendente", envolvido: "BBB", observacao: null, tipo: "REC",
+                        data_transacao: "2024-06-23T03:00:00.000Z", data_pagamento: "2024-06-23T03:00:00.000Z", valor: "-1500.00", status: false,
+                        conta_id: 2165574, usuario_id: 50314, transferencia_id: null, parcelamento_id: null
+                    },
+                    {
+                        conta: "Conta para saldo", id: 2031038, descricao: "Despesa paga", envolvido: "CCC", observacao: null, tipo: "DESP",
+                        data_transacao: "2024-06-23T03:00:00.000Z", data_pagamento: "2024-06-23T03:00:00.000Z", valor: "3500.00", status: true,
+                        conta_id: 2165575, usuario_id: 50314, transferencia_id: null, parcelamento_id: null
+                    },
+                    {
+                        conta: "Conta para saldo", id: 2031039, descricao: "Despesa pendente", envolvido: "DDD", observacao: null, tipo: "DESP",
+                        data_transacao: "2024-06-23T03:00:00.000Z", data_pagamento: "2024-06-23T03:00:00.000Z", valor: "-1000.00", status: false,
+                        conta_id: 2165575, usuario_id: 50314, transferencia_id: null, parcelamento_id: null
+                    }
+                ]
+            }).as('financialStatement')
+
+        cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
+        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Receita paga')).should('have.class', 'receitaPaga')
+
     })
 })
