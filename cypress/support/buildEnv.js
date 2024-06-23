@@ -33,7 +33,7 @@ const buildEnv = () => {
 
     cy.intercept({
         method: 'GET',
-        url: '/extrato'
+        url: '/extrato/**'
     },
         {
             statusCode: 200,
