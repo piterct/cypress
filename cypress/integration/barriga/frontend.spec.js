@@ -1,12 +1,14 @@
 /// <reference types="cypress" />
 import loc from '../../support/locators'
 import '../../support/commandAccounts'
+import buildEnv from '../../support/buildEnv';
 const USER = 'piterct.teste@gmail.com';
 const PASSWORD = 'Wrong password';
 
 
 describe('Should test at a functional level', () => {
     beforeEach(() => {
+        buildEnv();
         cy.login(USER, PASSWORD)
     });
 
@@ -14,8 +16,7 @@ describe('Should test at a functional level', () => {
         cy.clearLocalStorage()
     })
 
-
-    it('Should create an account', () => {       
+    it('Should create an account', () => {
         cy.intercept({
             method: 'POST',
             url: '/contas'
@@ -39,7 +40,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
     })
 
-    it.only('Should update an account', () => {
+    it('Should update an account', () => {
         cy.intercept({
             method: 'PUT',
             url: '/contas/**'
