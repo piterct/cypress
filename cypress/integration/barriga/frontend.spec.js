@@ -68,9 +68,21 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
     })
 
-    it('Should not create an account with same name', () => {
+    it.only('Should not create an account with same name', () => {
         cy.accessAccountMenu()
+        cy.intercept({
+            method: 'POST',
+            url: '/contas',
+        },
+            {
+                statusCode: 400,
+                body: {
+                    error: "Já existe uma conta com esse nome!"
+                }
+            }
+        ).as('accountWithTheSameName')
         cy.insertAccount('Conta mesmo nome')
+
         cy.get(loc.MESSAGE).should('contain', 'Request failed with status code 400')
     })
 
