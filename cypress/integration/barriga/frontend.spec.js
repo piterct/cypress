@@ -133,8 +133,54 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should get balance', () => {
+        cy.intercept({
+            method: "GET",
+            url: '/transacoes/**'
+        },
+            {
+                body: {
+                    conta: "Conta para saldo",
+                    id: 2031040,
+                    descricao: "Movimentacao 1, calculo saldo",
+                    envolvido: "EEE",
+                    observacao: null,
+                    tipo: "REC",
+                    data_transacao: "2024-06-23T03:00:00.000Z",
+                    data_pagamento: "2024-06-23T03:00:00.000Z",
+                    valor: "1534.00",
+                    status: true,
+                    conta_id: 2165575,
+                    usuario_id: 50314,
+                    transferencia_id: null,
+                    parcelamento_id: null
+                }
+            })
+
+        cy.intercept({
+            method: "PUT",
+            url: '/transacoes/**'
+        },
+            {
+                body: {
+                    conta: "Conta para saldo",
+                    id: 2031040,
+                    descricao: "Movimentacao 1, calculo saldo",
+                    envolvido: "EEE",
+                    observacao: null,
+                    tipo: "REC",
+                    data_transacao: "2024-06-23T03:00:00.000Z",
+                    data_pagamento: "2024-06-23T03:00:00.000Z",
+                    valor: "1534.00",
+                    status: true,
+                    conta_id: 2165575,
+                    usuario_id: 50314,
+                    transferencia_id: null,
+                    parcelamento_id: null
+                }
+            })
+
         cy.get(loc.MENU.HOME).click()
-        cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Conta para saldo')).should('contain', '534,00')
+        cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Wallet')).should('contain', '100,00')
 
         cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_UPDATE_TRANSACTION('Movimentacao 1, calculo saldo')).click()
@@ -143,8 +189,18 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
 
+        cy.intercept({
+            method: 'GET',
+            url: '/saldo',
+        },
+            [
+                { conta_id: 999, conta: "Wallet", saldo: "4034.00" },
+                { conta_id: 9909, conta: "Bank", saldo: "10000000.00" },
+            ]
+        ).as('finalBalance')
+
         cy.get(loc.MENU.HOME).click()
-        cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Conta para saldo')).should('contain', '4.034,00')
+        cy.xpath(loc.BALANCE.FN_XP_BALANCE_ACCOUNT('Wallet')).should('contain', '4.034,00')
     })
 
     it('Should remove a transaction', () => {
