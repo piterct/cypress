@@ -282,6 +282,7 @@ describe('Should test at a functional level', () => {
 
         cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Receita paga')).should('have.class', 'receitaPaga')
+        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Receita pendente')).should('have.class', 'receitaPendente')
 
     })
 })
