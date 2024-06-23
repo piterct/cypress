@@ -87,6 +87,29 @@ describe('Should test at a functional level', () => {
     })
 
     it.only('Should create a transaction', () => {
+        cy.intercept({
+            method: 'POST',
+            url: '/transacoes'
+        },
+            {
+                body: {
+                    id: 2031035,
+                    descricao: "Description",
+                    envolvido: "involved",
+                    observacao: null,
+                    tipo: "REC",
+                    data_transacao: "2024-06-23T03:00:00.000Z",
+                    data_pagamento: "2024-06-23T03:00:00.000Z",
+                    valor: "5000.00",
+                    status: false,
+                    conta_id: 2165565,
+                    usuario_id: 50314,
+                    transferencia_id: null,
+                    parcelamento_id: null
+                }
+            }
+        ).as('transations')
+
         cy.get(loc.MENU.MOVIMENTATION).click()
         cy.get(loc.MOVIMENTATION.DESCRIPTION).clear().type('Description')
         cy.get(loc.MOVIMENTATION.VALUE).clear().type('250')
