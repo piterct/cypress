@@ -68,7 +68,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
     })
 
-    it.only('Should not create an account with same name', () => {
+    it('Should not create an account with same name', () => {
         cy.accessAccountMenu()
         cy.intercept({
             method: 'POST',
@@ -86,12 +86,12 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Request failed with status code 400')
     })
 
-    it('Should create a transaction', () => {
+    it.only('Should create a transaction', () => {
         cy.get(loc.MENU.MOVIMENTATION).click()
         cy.get(loc.MOVIMENTATION.DESCRIPTION).clear().type('Description')
         cy.get(loc.MOVIMENTATION.VALUE).clear().type('250')
         cy.get(loc.MOVIMENTATION.INTERESTED).clear().type('Interested')
-        cy.get(loc.MOVIMENTATION.ACCOUNT).select('Conta para movimentacoes')
+        cy.get(loc.MOVIMENTATION.ACCOUNT).select('Bank')
         cy.get(loc.MOVIMENTATION.STATUS).click()
         cy.get(loc.MOVIMENTATION.BTN_SALVE).click()
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
