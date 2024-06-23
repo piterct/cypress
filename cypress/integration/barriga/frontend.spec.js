@@ -86,7 +86,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Request failed with status code 400')
     })
 
-    it.only('Should create a transaction', () => {
+    it('Should create a transaction', () => {
         cy.intercept({
             method: 'POST',
             url: '/transacoes'
@@ -110,7 +110,6 @@ describe('Should test at a functional level', () => {
             }
         ).as('transations')
 
-        cy.get(loc.MENU.MOVIMENTATION).click()
         cy.intercept({
             method: 'GET',
             url: '/extrato/**'
@@ -155,7 +154,8 @@ describe('Should test at a functional level', () => {
                     }
                 ]
             }).as('bankStatement')
-            
+
+        cy.get(loc.MENU.MOVIMENTATION).click()
         cy.get(loc.MOVIMENTATION.DESCRIPTION).clear().type('Description')
         cy.get(loc.MOVIMENTATION.VALUE).clear().type('250')
         cy.get(loc.MOVIMENTATION.INTERESTED).clear().type('Interested')
