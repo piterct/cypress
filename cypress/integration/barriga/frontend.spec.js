@@ -218,4 +218,34 @@ describe('Should test at a functional level', () => {
         cy.get(loc.FINANCIAL_STATEMENT.LINES).should('have.length', 6)
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
     })
+
+    it.only('Should validate data send create an account', () => {
+        cy.intercept({
+            method: 'POST',
+            url: '/contas'
+        },
+            {
+                body: { id: 3, nome: "Test account", visivel: true, usuario_id: 1 }
+            }
+        ).as('saveAccount')
+
+        cy.accessAccountMenu()
+
+        cy.intercept({
+            method: 'GET',
+            url: '/contas'
+        },
+            {
+                body: [
+                    { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
+                    { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
+                    { id: 3, nome: "Test account", visivel: true, usuario_id: 1 },
+                ]
+            }
+        ).as('savedAccounts')
+
+        cy.insertAccount('{CONTROL}')
+        cy.wait('@saveAccount').its('request.body.nome').should('be.empty')
+        cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso!')
+    })
 })
