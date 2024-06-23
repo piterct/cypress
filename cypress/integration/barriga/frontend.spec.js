@@ -7,27 +7,6 @@ const PASSWORD = 'Wrong password';
 
 describe('Should test at a functional level', () => {
     beforeEach(() => {
-        cy.intercept({
-            method: 'POST',
-            url: '/signin',
-        },
-            {
-                id: 50314,
-                nome: "False User",
-                token: "A big string"
-            }
-        ).as('signin')
-
-
-        cy.intercept({
-            method: 'GET',
-            url: '/saldo',
-        },
-            [
-                { conta_id: 999, conta: "Wallet", saldo: "100.00" },
-                { conta_id: 9909, conta: "Bank", saldo: "10000000.00" },
-            ]
-        ).as('balance')
         cy.login(USER, PASSWORD)
     });
 
@@ -36,17 +15,7 @@ describe('Should test at a functional level', () => {
     })
 
 
-    it('Should create an account', () => {
-        cy.intercept({
-            method: 'GET',
-            url: '/contas'
-        },
-            [
-                { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
-                { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
-            ]
-        ).as('accounts')
-
+    it('Should create an account', () => {       
         cy.intercept({
             method: 'POST',
             url: '/contas'
@@ -71,16 +40,6 @@ describe('Should test at a functional level', () => {
     })
 
     it.only('Should update an account', () => {
-        cy.intercept({
-            method: 'GET',
-            url: '/contas'
-        },
-            [
-                { id: 1, nome: "Wallet", visivel: true, usuario_id: 1 },
-                { id: 2, nome: "Bank", visivel: true, usuario_id: 1 },
-            ]
-        ).as('accounts')
-
         cy.intercept({
             method: 'PUT',
             url: '/contas/**'
