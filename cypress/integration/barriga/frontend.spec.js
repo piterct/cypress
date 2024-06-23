@@ -204,6 +204,15 @@ describe('Should test at a functional level', () => {
     })
 
     it('Should remove a transaction', () => {
+        cy.intercept({
+            method: "DELETE",
+            url: '/transacoes/**'
+        },
+            {
+                statusCode: 204,
+                body: {}
+            }).as('removed')
+
         cy.get(loc.MENU.FINANCIAL_STATEMENT).click()
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_REMOVE_TRANSACTION('Movimentacao para exclusao')).click()
         cy.get(loc.FINANCIAL_STATEMENT.LINES).should('have.length', 6)
