@@ -284,6 +284,7 @@ describe('Should test at a functional level', () => {
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Receita paga')).should('have.class', 'receitaPaga')
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Receita pendente')).should('have.class', 'receitaPendente')
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Despesa paga')).should('have.class', 'despesaPaga')
+        cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Despesa pendente')).should('have.class', 'despesaPendente')
        
 
     })
