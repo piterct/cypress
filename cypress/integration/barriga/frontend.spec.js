@@ -16,6 +16,20 @@ describe('Should test at a functional level', () => {
         cy.clearLocalStorage()
     })
 
+    it('Should testing responsiveness', () => {
+        cy.get('[data-test="menu-home"]').should('exist')
+            .and('be.visible')
+        cy.viewport(500, 700)
+        cy.get('[data-test="menu-home"]').should('exist')
+            .and('be.not.visible')
+        cy.viewport('iphone-5')
+        cy.get('[data-test="menu-home"]').should('exist')
+            .and('be.not.visible')
+        cy.viewport('ipad-2')
+        cy.get('[data-test="menu-home"]').should('exist')
+            .and('be.visible')
+    })
+
     it('Should create an account', () => {
         cy.intercept({
             method: 'POST',
@@ -286,5 +300,4 @@ describe('Should test at a functional level', () => {
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Despesa paga')).should('have.class', 'despesaPaga')
         cy.xpath(loc.FINANCIAL_STATEMENT.FN_XP_LINE('Despesa pendente')).should('have.class', 'despesaPendente')
     })
-
 })
