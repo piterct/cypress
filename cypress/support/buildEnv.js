@@ -69,7 +69,7 @@ const buildEnv = () => {
                     conta_id: 2165576, usuario_id: 50314, transferencia_id: null, parcelamento_id: null
                 }
             ]
-        })
+        }).as('financialStatement')
 }
 
 export default buildEnv
