@@ -7,7 +7,6 @@ it('a external test...', () => {
 describe('Should group tests', () => {
     describe('Should group more specfic tests...', () => {
         it('A specific test...', () => {
-
         })
     }) 
     describe('Should group more specfic tests 2...', () => {
